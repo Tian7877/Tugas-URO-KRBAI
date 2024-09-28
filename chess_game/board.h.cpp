@@ -33,7 +33,8 @@ public:
         board[7][0] = new Rook(WHITE);
         board[0][7] = new Rook(BLACK);
         board[7][7] = new Rook(WHITE);
-        // Tambahkan pieces lainnya (Knight, Bishop, Queen, King)
+        board[0][4] = new King(BLACK);
+        board[7][4] = new King(WHITE);
     }
 
     void printBoard() {
@@ -52,15 +53,13 @@ public:
 
     bool movePiece(int startX, int startY, int endX, int endY) {
         if (board[startX][startY] && board[startX][startY]->isValidMove(startX, startY, endX, endY, board)) {
-            // Lakukan gerakan
+            // Pindahkan bidak
             board[endX][endY] = board[startX][startY];
             board[startX][startY] = nullptr;
             return true;
         }
         return false;
     }
-
-    // Tambahkan logika check dan checkmate
 };
 
 #endif
