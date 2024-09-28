@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cmath>
 
 using namespace std;
 
@@ -31,12 +32,10 @@ public:
     Pawn(Color c) : Piece(c, (c == WHITE ? "P" : "p")) {}
 
     bool isValidMove(int startX, int startY, int endX, int endY, vector<vector<Piece*>>& board) override {
-        // Implementasi aturan gerakan bidak
         int direction = (color == WHITE) ? -1 : 1;
         if (startX + direction == endX && startY == endY && !board[endX][endY]) {
             return true;  // Gerakan maju satu langkah
         }
-        // Tambahkan aturan promosi, capture diagonal, dan en passant
         return false;
     }
 };
@@ -48,7 +47,12 @@ public:
 
     bool isValidMove(int startX, int startY, int endX, int endY, vector<vector<Piece*>>& board) override {
         if (startX == endX || startY == endY) {
-            // Tambahkan logika validasi jalur kosong
+            for (int i = min(startX, endX) + 1; i < max(startX, endX); ++i) {
+                if (board[i][startY] != nullptr) return false;  // Tidak boleh ada halangan di jalur
+            }
+            for (int j = min(startY, endY) + 1; j < max(startY, endY); ++j) {
+                if (board[startX][j] != nullptr) return false;  // Tidak boleh ada halangan di jalur
+            }
             return true;
         }
         return false;
@@ -61,11 +65,8 @@ public:
     King(Color c) : Piece(c, (c == WHITE ? "K" : "k")) {}
 
     bool isValidMove(int startX, int startY, int endX, int endY, vector<vector<Piece*>>& board) override {
-        // Aturan gerakan raja
         return (abs(endX - startX) <= 1 && abs(endY - startY) <= 1);
     }
 };
-
-// Kelas Queen, Knight, Bishop, dan lainnya dapat ditambahkan dengan cara yang mirip.
 
 #endif
