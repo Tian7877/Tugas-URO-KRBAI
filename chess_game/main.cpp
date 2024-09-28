@@ -1,9 +1,8 @@
 #include <iostream>
-#include "board.h.cpp"
+#include "board.h"
 
 int main() {
     Board board;
-    string move;
     int startX, startY, endX, endY;
     bool isWhiteTurn = true;
 
@@ -20,9 +19,8 @@ int main() {
         } else {
             cout << "Gerakan tidak valid. Coba lagi.\n";
         }
-
-        // Tambahkan pengecekan check, checkmate, atau promosi
     }
 
     return 0;
 }
+
